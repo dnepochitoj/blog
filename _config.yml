@@ -5,7 +5,8 @@
 # Name of your site (displayed in the header)
 name: Your Name
 #theme: jekyll-theme-hacker
-remote_theme: pages-themes/hacker@v0.2.0
+#remote_theme: pages-themes/hacker@v0.2.0
+theme: jekyll-theme-cayman
 
 # Short bio or description (displayed in the header)
 description: Web Developer from Somewhere
