@@ -1,7 +1,8 @@
 ---
 layout: post
 title: You're up and running!
-tags: first_one,hello
+categories: first_one_cat
+tags: first_one_tag
 ---
 
 Next you can update your site name, avatar and other options using the _config.yml file in the root of your repository (shown below).
