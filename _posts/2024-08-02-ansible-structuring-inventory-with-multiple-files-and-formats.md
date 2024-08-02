@@ -1,4 +1,9 @@
-# Ansible: Structuring Inventory with Multiple Files and Formats
+---
+layout: post
+title: Ansible - Structuring Inventory with Multiple Files and Formats
+---
+
+This guide outlines how to effectively organize an Ansible inventory using a combination of multiple files and formats, such as YAML and INI. It provides insights into creating a structured inventory system that enhances manageability and scalability of Ansible playbooks.
 
 - [Ansible: Structuring Inventory with Multiple Files and Formats](#ansible-structuring-inventory-with-multiple-files-and-formats)
     - [For reference](#for-reference)
@@ -6,8 +11,6 @@
     - [Utilizing Ansible Inventory Command](#utilizing-ansible-inventory-command)
     - [Executing Ansible Modules Across Inventory Groups](#executing-ansible-modules-across-inventory-groups)
     - [Conclusion](#conclusion)
-
-This guide outlines how to effectively organize an Ansible inventory using a combination of multiple files and formats, such as YAML and INI. It provides insights into creating a structured inventory system that enhances manageability and scalability of Ansible playbooks.
 
 ```bash
 $ ansible --version
