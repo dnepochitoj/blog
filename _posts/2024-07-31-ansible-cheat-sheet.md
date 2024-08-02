@@ -1843,9 +1843,9 @@ changed: [pg-standalone-01.example.com]
 
 PLAY RECAP **********************************************************************************************************************************************************
 pg-standalone-01.example.com          : ok=3    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
-```
+  </code>
 
-```bash
+  <code>
 $ tree /tmp/fetched
 /tmp/fetched
 └── pg-standalone-01.example.com
@@ -2163,9 +2163,9 @@ changed: [pg-standalone-01.example.com]
 
 PLAY RECAP ******************************************************************************************************************************************************
 pg-standalone-01.example.com          : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
-```
+  </code>
 
-```bash
+  <code>
 $ cat pgbouncer.ini
 ; Small example config for Pgbouncer
 ; taken from https://www.pgbouncer.org/config.html
