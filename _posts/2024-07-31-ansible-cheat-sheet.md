@@ -5,8 +5,6 @@ categories: ansible
 tags: ansible
 ---
 
-# ansible cheat sheet
-
 This Ansible cheat sheet gives you quick tips and reminders for the key commands, modules, and features in Ansible. Whether you're organizing your inventory, writing playbooks, securing secrets with Ansible Vault, or running one-off commands, this cheat sheet is handy, keeping important Ansible stuff easy to find.
 
 All commands were run in a real setup. Every command is pretty much self-explanatory, with descriptions added only where necessary.
