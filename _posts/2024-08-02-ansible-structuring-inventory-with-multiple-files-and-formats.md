@@ -1,6 +1,8 @@
 ---
 layout: post
 title: Ansible - Structuring Inventory with Multiple Files and Formats
+categories: ansible
+tags: ansible
 ---
 
 This guide outlines how to effectively organize an Ansible inventory using a combination of multiple files and formats, such as YAML and INI. It provides insights into creating a structured inventory system that enhances manageability and scalability of Ansible playbooks.
