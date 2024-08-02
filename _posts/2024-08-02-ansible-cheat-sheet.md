@@ -123,8 +123,7 @@ community.postgresql.postgresql_user_obj_stat_info       Gather statistics abou.
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
-
+```
 > MODULE ping (~/.pyenv/versions/3.11.0/lib/python3.11/site-packages/ansible/modules/ping.py)
 
 A trivial test module, this module always returns `pong' on successful contact. It does not
@@ -182,7 +181,6 @@ ping    Value provided with the `data' parameter.
         returned: success
         sample: pong
         type: str
-
 ```
 
 </details>
