@@ -4,12 +4,12 @@ title: About
 permalink: /about/
 ---
 
-Some information about you!
+Oracle Database and E-Business Suite administration professional, who has over 10 years of experience in IT. 
 
 ### More Information
 
-A place to include any other types of information that you'd like to include about yourself.
+Technically supported dozens of successful Oracle E-Business Suite and Oracle Database software migration, upgrade and implementation projects. 
 
 ### Contact me
 
-[email@domain.com](mailto:email@domain.com)
+[scam-oops-swipe@duck.com](mailto:scam-oops-swipe@duck.com)
