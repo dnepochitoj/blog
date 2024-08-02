@@ -5,6 +5,8 @@ categories: ansible
 tags: ansible
 ---
 
+# ansible cheat sheet
+
 This Ansible cheat sheet gives you quick tips and reminders for the key commands, modules, and features in Ansible. Whether you're organizing your inventory, writing playbooks, securing secrets with Ansible Vault, or running one-off commands, this cheat sheet is handy, keeping important Ansible stuff easy to find.
 
 All commands were run in a real setup. Every command is pretty much self-explanatory, with descriptions added only where necessary.
@@ -13,6 +15,8 @@ All commands were run in a real setup. Every command is pretty much self-explana
     - [ansible-doc](#ansible-doc)
         - [List modules](#list-modules)
         - [Describe module](#describe-module)
+- [Test we can logon to 'webservers' and execute python with json lib.](#test-we-can-logon-to-webservers-and-execute-python-with-json-lib)
+- [ansible webservers -m ping](#ansible-webservers--m-ping)
         - [Briefly describe module](#briefly-describe-module)
     - [ansible-inventory](#ansible-inventory)
         - [List the inventory in list form](#list-the-inventory-in-list-form)
@@ -63,7 +67,6 @@ All commands were run in a real setup. Every command is pretty much self-explana
         - [Module script](#module-script)
         - [Module copy](#module-copy)
         - [Module fetch](#module-fetch)
-        - [Module get\_url](#module-get_url)
         - [Module archive](#module-archive)
         - [Module unarchive](#module-unarchive)
         - [Module file](#module-file)
@@ -125,7 +128,9 @@ community.postgresql.postgresql_user_obj_stat_info       Gather statistics abou.
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```
+<pre>
+  <code>
+
 > MODULE ping (~/.pyenv/versions/3.11.0/lib/python3.11/site-packages/ansible/modules/ping.py)
 
 A trivial test module, this module always returns `pong' on successful contact. It does not
@@ -183,7 +188,9 @@ ping    Value provided with the `data' parameter.
         returned: success
         sample: pong
         type: str
-```
+
+  </code>
+</pre>
 
 </details>
 
@@ -194,11 +201,13 @@ ping    Value provided with the `data' parameter.
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
+<pre>
+  <code>
 - name: Try to connect to host, verify a usable python and return `pong' on success
   ping:
       data:                  # Data to return for the `ping' return value. If this parameter is set to `crash', the module will cause an exception.
-```
+  </code>
+</pre>
 
 </details>
 
@@ -213,7 +222,8 @@ ping    Value provided with the `data' parameter.
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
+<pre>
+  <code>
 {
     "_meta": {
         "hostvars": {
@@ -257,7 +267,8 @@ ping    Value provided with the `data' parameter.
         ]
     }
 }
-```
+  </code>
+</pre>
 
 </details>
 
@@ -268,7 +279,8 @@ ping    Value provided with the `data' parameter.
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
+<pre>
+  <code>
 @all:
   |--@ungrouped:
   |--@pg_standalone_a:
@@ -279,7 +291,8 @@ ping    Value provided with the `data' parameter.
   |  |  |--pg-cluster-02.example.com
   |  |  |--pg-cluster-03.example.com
   |  |--@pg_cluster_b_lb:
-```
+  </code>
+</pre>
 
 </details>
 
@@ -294,13 +307,15 @@ Ansible ad hoc commands allow for quick execution of tasks without writing a ful
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
+<pre>
+  <code>
   hosts (4):
     pg-standalone-01.example.com
     pg-cluster-01.example.com
     pg-cluster-02.example.com
     pg-cluster-03.example.com
-```
+  </code>
+</pre>
 
 </details>
 
@@ -311,7 +326,8 @@ Ansible ad hoc commands allow for quick execution of tasks without writing a ful
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
+<pre>
+  <code>
 pg-standalone-01.example.com | SUCCESS => {
     "ansible_facts": {
         "discovered_interpreter_python": "/usr/bin/python3.10"
@@ -319,7 +335,8 @@ pg-standalone-01.example.com | SUCCESS => {
     "changed": false,
     "ping": "pong"
 }
-```
+  </code>
+</pre>
 
 </details>
 
@@ -334,7 +351,8 @@ pg-standalone-01.example.com | SUCCESS => {
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
+<pre>
+  <code>
 Using /etc/ansible/ansible.cfg as config file
 pg-standalone-01.example.com | SUCCESS => {
     "ansible_facts": {
@@ -343,7 +361,8 @@ pg-standalone-01.example.com | SUCCESS => {
     "changed": false,
     "ping": "pong"
 }
-```
+  </code>
+</pre>
 
 </details>
 
@@ -356,7 +375,8 @@ pg-standalone-01.example.com | SUCCESS => {
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
+<pre>
+  <code>
     "ansible_facts": {
         "ansible_all_ipv4_addresses": [
         "ansible_all_ipv6_addresses": [
@@ -457,7 +477,8 @@ pg-standalone-01.example.com | SUCCESS => {
         "ansible_virtualization_tech_guest": [
         "ansible_virtualization_tech_host": [],
         "ansible_virtualization_type": "virtualbox",
-```
+  </code>
+</pre>
 
 </details>
 
@@ -468,7 +489,8 @@ pg-standalone-01.example.com | SUCCESS => {
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
+<pre>
+  <code>
 pg-cluster-03.example.com | CHANGED | rc=0 >>
  01:19:45 up 6 days,  4:44,  1 user,  load average: 0.13, 0.07, 0.02
 pg-cluster-02.example.com | CHANGED | rc=0 >>
@@ -477,7 +499,8 @@ pg-cluster-01.example.com | CHANGED | rc=0 >>
  23:22:18 up 7 days,  2:47,  3 users,  load average: 0.16, 0.12, 0.09
 pg-standalone-01.example.com | CHANGED | rc=0 >>
  08:10:24 up 1 day,  3:56,  5 users,  load average: 0.00, 0.01, 0.00
-```
+  </code>
+</pre>
 
 </details>
 
@@ -488,7 +511,8 @@ pg-standalone-01.example.com | CHANGED | rc=0 >>
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
+<pre>
+  <code>
 pg-standalone-01.example.com | CHANGED | rc=0 >>
  08:11:54 up 1 day,  3:57,  5 users,  load average: 0.06, 0.02, 0.00
 pg-cluster-02.example.com | CHANGED | rc=0 >>
@@ -497,7 +521,8 @@ pg-cluster-03.example.com | CHANGED | rc=0 >>
  01:21:23 up 6 days,  4:46,  1 user,  load average: 0.14, 0.10, 0.03
 pg-cluster-01.example.com | CHANGED | rc=0 >>
  23:23:56 up 7 days,  2:49,  3 users,  load average: 0.48, 0.21, 0.12
-```
+  </code>
+</pre>
 
 </details>
 
@@ -508,7 +533,8 @@ pg-cluster-01.example.com | CHANGED | rc=0 >>
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
+<pre>
+  <code>
 pg-cluster-02.example.com | CHANGED | rc=0 >>
 Architecture:                       x86_64
 pg-cluster-03.example.com | CHANGED | rc=0 >>
@@ -517,7 +543,8 @@ pg-cluster-01.example.com | CHANGED | rc=0 >>
 Architecture:                       x86_64
 pg-standalone-01.example.com | CHANGED | rc=0 >>
 Architecture:                       x86_64
-```
+  </code>
+</pre>
 
 </details>
 
@@ -528,11 +555,13 @@ Architecture:                       x86_64
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
+<pre>
+  <code>
 pg-standalone-01.example.com | FAILED | rc=1 >>
 lscpu: bad usage
 Try 'lscpu --help' for more information.non-zero return code
-```
+  </code>
+</pre>
 
 </details>
 
@@ -543,7 +572,8 @@ Try 'lscpu --help' for more information.non-zero return code
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
+<pre>
+  <code>
 pg-standalone-01.example.com | SUCCESS => {
     "ansible_facts": {
         "discovered_interpreter_python": "/usr/bin/python3.10"
@@ -560,10 +590,10 @@ pg-standalone-01.example.com | SUCCESS => {
     "state": "file",
     "uid": 1018
 }
-```
+  </code>
+</pre>
 
 </details>
-
 
 ### Transfer file from remote host to local host
 
@@ -572,7 +602,8 @@ pg-standalone-01.example.com | SUCCESS => {
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
+<pre>
+  <code>
 pg-standalone-01.example.com | CHANGED => {
     "changed": true,
     "checksum": "6949b21c5ccdff93c55fb7828b22fb74db25905a",
@@ -581,7 +612,8 @@ pg-standalone-01.example.com | CHANGED => {
     "remote_checksum": "6949b21c5ccdff93c55fb7828b22fb74db25905a",
     "remote_md5sum": null
 }
-```
+  </code>
+</pre>
 
 </details>
 
@@ -593,7 +625,8 @@ pg-standalone-01.example.com | CHANGED => {
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
+<pre>
+  <code>
 pg-standalone-01.example.com | CHANGED => {
     "ansible_facts": {
         "discovered_interpreter_python": "/usr/bin/python3.10"
@@ -602,7 +635,8 @@ pg-standalone-01.example.com | CHANGED => {
     "path": "/tmp/source_file",
     "state": "absent"
 }
-```
+  </code>
+</pre>
 
 </details>
 
@@ -613,7 +647,8 @@ pg-standalone-01.example.com | CHANGED => {
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
+<pre>
+  <code>
 pg-standalone-01.example.com | CHANGED => {
     "ansible_facts": {
         "discovered_interpreter_python": "/usr/bin/python3.10"
@@ -636,7 +671,8 @@ pg-standalone-01.example.com | CHANGED => {
     "uid": 1018,
     "url": "https://filesamples.com/samples/document/csv/sample4.csv"
 }
-```
+  </code>
+</pre>
 
 </details>
 
@@ -649,7 +685,8 @@ pg-standalone-01.example.com | CHANGED => {
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
+<pre>
+  <code>
 pg-standalone-01.example.com | SUCCESS => {
     "ansible_facts": {
         "discovered_interpreter_python": "/usr/bin/python3.10"
@@ -693,7 +730,8 @@ pg-standalone-01.example.com | SUCCESS => {
     "x_e": "d",
     "x_xss_protection": "1; mode=block"
 }
-```
+  </code>
+</pre>
 
 </details>
 
@@ -704,7 +742,8 @@ pg-standalone-01.example.com | SUCCESS => {
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
+<pre>
+  <code>
 pg-standalone-01.example.com | CHANGED => {
     "ansible_facts": {
         "discovered_interpreter_python": "/usr/bin/python3.10"
@@ -721,7 +760,8 @@ pg-standalone-01.example.com | CHANGED => {
         "ActiveState": "failed",
 
 (... Output truncated intentionally ...)
-```
+  </code>
+</pre>
 
 </details>
 
@@ -736,10 +776,12 @@ pg-standalone-01.example.com | CHANGED => {
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
+<pre>
+  <code>
 New Vault password:
 Confirm New Vault password:
-```
+  </code>
+</pre>
 
 </details>
 
@@ -750,10 +792,12 @@ Confirm New Vault password:
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
+<pre>
+  <code>
 Vault password:
 my-secret
-```
+  </code>
+</pre>
 
 </details>
 
@@ -764,9 +808,11 @@ my-secret
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
+<pre>
+  <code>
 Vault password:
-```
+  </code>
+</pre>
 
 </details>
 
@@ -777,12 +823,14 @@ Vault password:
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
+<pre>
+  <code>
 Vault password:
 New Vault password:
 Confirm New Vault password:
 Rekey successful
-```
+  </code>
+</pre>
 
 </details>
 
@@ -793,11 +841,13 @@ Rekey successful
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
+<pre>
+  <code>
 New Vault password:
 Confirm New Vault password:
 Encryption successful
-```
+  </code>
+</pre>
 
 </details>
 
@@ -808,7 +858,8 @@ Encryption successful
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
+<pre>
+  <code>
 Vault password:
 
 PLAY [Test connection to servers] ***********************************************************************************************************************************
@@ -826,7 +877,8 @@ ok: [pg-standalone-01.example.com]
 
 PLAY RECAP **********************************************************************************************************************************************************
 pg-standalone-01.example.com          : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
-```
+  </code>
+</pre>
 
 </details>
 
@@ -835,7 +887,8 @@ pg-standalone-01.example.com          : ok=3    changed=0    unreachable=0    fa
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
+<pre>
+  <code>
 PLAY [Test connection to servers] ***********************************************************************************************************************************
 
 TASK [Gathering Facts] **********************************************************************************************************************************************
@@ -851,7 +904,8 @@ ok: [pg-standalone-01.example.com]
 
 PLAY RECAP **********************************************************************************************************************************************************
 pg-standalone-01.example.com          : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
-```
+  </code>
+</pre>
 
 </details>
 
@@ -862,10 +916,12 @@ pg-standalone-01.example.com          : ok=3    changed=0    unreachable=0    fa
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
+<pre>
+  <code>
 Vault password:
 Decryption successful
-```
+  </code>
+</pre>
 
 </details>
 
@@ -876,7 +932,8 @@ Decryption successful
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
+<pre>
+  <code>
 New Vault password:
 Confirm New Vault password:
 Reading plaintext input from stdin. (ctrl-d to end input, twice if your content does not already have a newline)
@@ -889,7 +946,8 @@ My password: !vault |
           38623030303564306262306164343637343538336462346330306165373832383762386236303937
           3333363136346662350a316331323664376364386261353438386662396166323930653333623062
           6539
-```
+  </code>
+</pre>
 
 </details>
 
@@ -904,9 +962,11 @@ My password: !vault |
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
+<pre>
+  <code>
 playbook: testing_playbook.yml
-```
+  </code>
+</pre>
 
 </details>
 
@@ -915,7 +975,8 @@ playbook: testing_playbook.yml
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
+<pre>
+  <code>
 ERROR! couldn't resolve module/action 'wrong_module'. This often indicates a misspelling, missing collection, or incorrect module path.
 
 The error appears to be in '/private/etc/ansible/playbooks/wrong_playbook.yml': line 12, column 5, but may
@@ -926,7 +987,8 @@ The offending line appears to be:
 
   - name: Wrong module
     ^ here
-```
+  </code>
+</pre>
 
 </details>
 
@@ -937,7 +999,8 @@ The offending line appears to be:
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
+<pre>
+  <code>
 playbook: testing_playbook.yml
 
   play #1 (all): Test connection to servers     TAGS: []
@@ -951,7 +1014,8 @@ playbook: testing_playbook.yml
       Print Hello       TAGS: []
       Ping my servers   TAGS: [check]
       TASK TAGS: [check]
-```
+  </code>
+</pre>
 
 </details>
 
@@ -962,7 +1026,8 @@ playbook: testing_playbook.yml
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
+<pre>
+  <code>
 PLAY [Test connection to servers] ***********************************************************************************************************************************
 
 TASK [Gathering Facts] **********************************************************************************************************************************************
@@ -996,7 +1061,8 @@ pg-cluster-01.example.com    : ok=3    changed=0    unreachable=0    failed=0   
 pg-cluster-02.example.com    : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 pg-cluster-03.example.com    : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 pg-standalone-01.example.com          : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
-```
+  </code>
+</pre>
 
 </details>
 
@@ -1007,7 +1073,8 @@ pg-standalone-01.example.com          : ok=3    changed=0    unreachable=0    fa
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
+<pre>
+  <code>
 
 PLAY [Test connection to servers] ***********************************************************************************************************************************
 
@@ -1024,7 +1091,8 @@ ok: [pg-standalone-01.example.com]
 
 PLAY RECAP **********************************************************************************************************************************************************
 pg-standalone-01.example.com          : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
-```
+  </code>
+</pre>
 
 </details>
 
@@ -1035,7 +1103,8 @@ pg-standalone-01.example.com          : ok=3    changed=0    unreachable=0    fa
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
+<pre>
+  <code>
 PLAY [Test connection to servers] ***********************************************************************************************************************************
 
 TASK [Gathering Facts] **********************************************************************************************************************************************
@@ -1055,7 +1124,8 @@ pg-cluster-01.example.com    : ok=2    changed=0    unreachable=0    failed=0   
 pg-cluster-02.example.com    : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 pg-cluster-03.example.com    : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 pg-standalone-01.example.com          : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
-```
+  </code>
+</pre>
 
 </details>
 
@@ -1066,7 +1136,8 @@ pg-standalone-01.example.com          : ok=2    changed=0    unreachable=0    fa
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
+<pre>
+  <code>
 PLAY [Test connection to servers] ***********************************************************************************************************************************
 
 TASK [Gathering Facts] **********************************************************************************************************************************************
@@ -1086,7 +1157,8 @@ pg-cluster-01.example.com    : ok=2    changed=0    unreachable=0    failed=0   
 pg-cluster-02.example.com    : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 pg-cluster-03.example.com    : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 pg-standalone-01.example.com          : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
-```
+  </code>
+</pre>
 
 </details>
 
@@ -1097,7 +1169,8 @@ pg-standalone-01.example.com          : ok=2    changed=0    unreachable=0    fa
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
+<pre>
+  <code>
 PLAY [Test connection to servers] ***********************************************************************************************************************************
 Perform task: TASK: Gathering Facts (N)o/(y)es/(c)ontinue: y
 
@@ -1126,7 +1199,8 @@ pg-cluster-01.example.com    : ok=2    changed=0    unreachable=0    failed=0   
 pg-cluster-02.example.com    : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 pg-cluster-03.example.com    : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 pg-standalone-01.example.com          : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
-```
+  </code>
+</pre>
 
 </details>
 
@@ -1137,7 +1211,8 @@ pg-standalone-01.example.com          : ok=2    changed=0    unreachable=0    fa
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
+<pre>
+  <code>
 SSH password:
 BECOME password[defaults to SSH password]:
 
@@ -1174,7 +1249,8 @@ pg-cluster-01.example.com    : ok=3    changed=0    unreachable=0    failed=0   
 pg-cluster-02.example.com    : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 pg-cluster-03.example.com    : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 pg-standalone-01.example.com          : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
-```
+  </code>
+</pre>
 
 </details>
 
@@ -1237,7 +1313,8 @@ $ ansible-playbook -i testing_inventory testing_modules.yml -l pg-standalone-01.
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
+<pre>
+  <code>
 PLAY [Ping module] **************************************************************************************************************************************************
 
 TASK [Gathering Facts] **********************************************************************************************************************************************
@@ -1257,7 +1334,8 @@ pg-cluster-01.example.com    : ok=2    changed=0    unreachable=0    failed=0   
 pg-cluster-02.example.com    : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 pg-cluster-03.example.com    : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 pg-standalone-01.example.com          : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
-```
+  </code>
+</pre>
 
 </details>
 
@@ -1269,7 +1347,8 @@ ansible all -i testing_inventory.yml -m setup -a 'filter=ansible_os_family'
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
+<pre>
+  <code>
 pg-cluster-03.example.com | SUCCESS => {
     "ansible_facts": {
         "ansible_os_family": "RedHat",
@@ -1298,7 +1377,8 @@ pg-standalone-01.example.com | SUCCESS => {
     },
     "changed": false
 }
-```
+  </code>
+</pre>
 
 </details>
 
@@ -1322,7 +1402,8 @@ pg-standalone-01.example.com | SUCCESS => {
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
+<pre>
+  <code>
 PLAY [Testing apt module] *******************************************************************************************************************************************
 
 TASK [Gathering Facts] **********************************************************************************************************************************************
@@ -1342,7 +1423,8 @@ pg-cluster-01.example.com    : ok=1    changed=0    unreachable=0    failed=0   
 pg-cluster-02.example.com    : ok=1    changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0
 pg-cluster-03.example.com    : ok=1    changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0
 pg-standalone-01.example.com          : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
-```
+  </code>
+</pre>
 
 </details>
 
@@ -1364,7 +1446,8 @@ pg-standalone-01.example.com          : ok=2    changed=1    unreachable=0    fa
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
+<pre>
+  <code>
 PLAY [Testing yum module] *******************************************************************************************************************************************
 
 TASK [Gathering Facts] **********************************************************************************************************************************************
@@ -1384,7 +1467,8 @@ pg-cluster-01.example.com    : ok=2    changed=1    unreachable=0    failed=0   
 pg-cluster-02.example.com    : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 pg-cluster-03.example.com    : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 pg-standalone-01.example.com          : ok=1    changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0
-```
+  </code>
+</pre>
 
 </details>
 
@@ -1413,7 +1497,8 @@ pg-standalone-01.example.com          : ok=1    changed=0    unreachable=0    fa
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
+<pre>
+  <code>
 PLAY [Testing package module] ***************************************************************************************************************************************
 
 TASK [Gathering Facts] **********************************************************************************************************************************************
@@ -1439,7 +1524,8 @@ pg-cluster-01.example.com    : ok=2    changed=1    unreachable=0    failed=0   
 pg-cluster-02.example.com    : ok=2    changed=1    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0
 pg-cluster-03.example.com    : ok=2    changed=1    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0
 pg-standalone-01.example.com          : ok=2    changed=1    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0
-```
+  </code>
+</pre>
 
 </details>
 
@@ -1462,7 +1548,8 @@ pg-standalone-01.example.com          : ok=2    changed=1    unreachable=0    fa
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
+<pre>
+  <code>
 PLAY [Update python packages] ***************************************************************************************************************************************
 
 TASK [Gathering Facts] **********************************************************************************************************************************************
@@ -1482,7 +1569,8 @@ pg-cluster-01.example.com    : ok=1    changed=0    unreachable=0    failed=0   
 pg-cluster-02.example.com    : ok=1    changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0
 pg-cluster-03.example.com    : ok=1    changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0
 pg-standalone-01.example.com          : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
-```
+  </code>
+</pre>
 
 </details>
 
@@ -1506,7 +1594,8 @@ pg-standalone-01.example.com          : ok=2    changed=1    unreachable=0    fa
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
+<pre>
+  <code>
 PLAY [raw module usage] *********************************************************************************************************************************************
 
 TASK [Gathering Facts] **********************************************************************************************************************************************
@@ -1520,7 +1609,8 @@ changed: [pg-standalone-01.example.com]
 
 PLAY RECAP **********************************************************************************************************************************************************
 pg-standalone-01.example.com          : ok=3    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
-```
+  </code>
+</pre>
 
 </details>
 
@@ -1546,7 +1636,8 @@ pg-standalone-01.example.com          : ok=3    changed=2    unreachable=0    fa
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
+<pre>
+  <code>
 PLAY [command module] ***********************************************************************************************************************************************
 
 TASK [Gathering Facts] **********************************************************************************************************************************************
@@ -1566,7 +1657,8 @@ ok: [pg-standalone-01.example.com] => {
 
 PLAY RECAP **********************************************************************************************************************************************************
 pg-standalone-01.example.com          : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
-```
+  </code>
+</pre>
 
 </details>
 
@@ -1594,7 +1686,8 @@ pg-standalone-01.example.com          : ok=3    changed=0    unreachable=0    fa
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
+<pre>
+  <code>
 PLAY [shell module] *************************************************************************************************************************************************
 
 TASK [Gathering Facts] **********************************************************************************************************************************************
@@ -1617,7 +1710,8 @@ ok: [pg-standalone-01.example.com] => {
 
 PLAY RECAP **********************************************************************************************************************************************************
 pg-standalone-01.example.com          : ok=4    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
-```
+  </code>
+</pre>
 
 </details>
 
@@ -1636,7 +1730,8 @@ pg-standalone-01.example.com          : ok=4    changed=2    unreachable=0    fa
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
+<pre>
+  <code>
 PLAY [script module] ************************************************************************************************************************************************
 
 TASK [Gathering Facts] **********************************************************************************************************************************************
@@ -1647,7 +1742,8 @@ changed: [pg-standalone-01.example.com]
 
 PLAY RECAP **********************************************************************************************************************************************************
 pg-standalone-01.example.com          : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
-```
+  </code>
+</pre>
 
 </details>
 
@@ -1684,7 +1780,8 @@ pg-standalone-01.example.com          : ok=2    changed=1    unreachable=0    fa
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
+<pre>
+  <code>
 PLAY [copy module] **************************************************************************************************************************************************
 
 TASK [Gathering Facts] **********************************************************************************************************************************************
@@ -1701,7 +1798,8 @@ changed: [pg-standalone-01.example.com]
 
 PLAY RECAP **********************************************************************************************************************************************************
 pg-standalone-01.example.com          : ok=4    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
-```
+  </code>
+</pre>
 
 </details>
 
@@ -1730,7 +1828,8 @@ pg-standalone-01.example.com          : ok=4    changed=3    unreachable=0    fa
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
+<pre>
+  <code>
 PLAY [fetch module] *************************************************************************************************************************************************
 
 TASK [Gathering Facts] **********************************************************************************************************************************************
@@ -1762,7 +1861,8 @@ $ tree /tmp/pg-standalone-01
 └── postgresql-15-testdb.log
 
 0 directories, 1 file
-```
+  </code>
+</pre>
 
 </details>
 
@@ -1787,7 +1887,8 @@ $ tree /tmp/pg-standalone-01
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
+<pre>
+  <code>
 PLAY [get_url module] *******************************************************************************************************************************************
 
 TASK [Gathering Facts] ******************************************************************************************************************************************
@@ -1798,7 +1899,8 @@ ok: [pg-standalone-01.example.com]
 
 PLAY RECAP ******************************************************************************************************************************************************
 pg-standalone-01.example.com          : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
-```
+  </code>
+</pre>
 
 </details>
 
@@ -1843,7 +1945,8 @@ pg-standalone-01.example.com          : ok=2    changed=0    unreachable=0    fa
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
+<pre>
+  <code>
 PLAY [archive module] *******************************************************************************************************************************************
 
 TASK [Gathering Facts] ******************************************************************************************************************************************
@@ -1863,7 +1966,8 @@ changed: [pg-standalone-01.example.com]
 
 PLAY RECAP ******************************************************************************************************************************************************
 pg-standalone-01.example.com          : ok=5    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
-```
+  </code>
+</pre>
 
 </details>
 
@@ -1900,7 +2004,8 @@ pg-standalone-01.example.com          : ok=5    changed=4    unreachable=0    fa
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
+<pre>
+  <code>
 PLAY [unarchive module] *****************************************************************************************************************************************
 
 TASK [Gathering Facts] ******************************************************************************************************************************************
@@ -1917,7 +2022,8 @@ changed: [pg-standalone-01.example.com]
 
 PLAY RECAP ******************************************************************************************************************************************************
 pg-standalone-01.example.com          : ok=4    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
-```
+  </code>
+</pre>
 
 </details>
 
@@ -1966,7 +2072,8 @@ pg-standalone-01.example.com          : ok=4    changed=3    unreachable=0    fa
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
+<pre>
+  <code>
 
 PLAY [file module] **********************************************************************************************************************************************
 
@@ -1990,7 +2097,8 @@ changed: [pg-standalone-01.example.com]
 
 PLAY RECAP ******************************************************************************************************************************************************
 pg-standalone-01.example.com          : ok=6    changed=5    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
-```
+  </code>
+</pre>
 
 </details>
 
@@ -2043,7 +2151,8 @@ EOF
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
+<pre>
+  <code>
 PLAY [template module] ******************************************************************************************************************************************
 
 TASK [Gathering Facts] ******************************************************************************************************************************************
@@ -2108,7 +2217,8 @@ stats_users = stat_collector
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
+<pre>
+  <code>
 PLAY [find module] **************************************************************************************************
 
 TASK [Gathering Facts] **********************************************************************************************
@@ -2133,7 +2243,8 @@ ok: [pg-standalone-01.example.com] => (item={'path': '/var/log/postgresql/postgr
 
 PLAY RECAP **********************************************************************************************************
 pg-standalone-01.example.com          : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
-```
+  </code>
+</pre>
 
 </details>
 
@@ -2167,7 +2278,8 @@ pg-standalone-01.example.com          : ok=3    changed=0    unreachable=0    fa
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
+<pre>
+  <code>
 PLAY [replace module] ***********************************************************************************************
 
 TASK [Gathering Facts] **********************************************************************************************
@@ -2181,7 +2293,8 @@ changed: [pg-standalone-01.example.com]
 
 PLAY RECAP **********************************************************************************************************
 pg-standalone-01.example.com          : ok=3    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
-```
+  </code>
+</pre>
 
 </details>
 
@@ -2226,7 +2339,8 @@ pg-standalone-01.example.com          : ok=3    changed=2    unreachable=0    fa
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
+<pre>
+  <code>
 PLAY [lineinfile module] ********************************************************************************************
 
 TASK [Gathering Facts] **********************************************************************************************
@@ -2246,7 +2360,8 @@ changed: [pg-standalone-01.example.com]
 
 PLAY RECAP **********************************************************************************************************
 pg-standalone-01.example.com          : ok=5    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
-```
+  </code>
+</pre>
 
 </details>
 
@@ -2276,7 +2391,8 @@ pg-standalone-01.example.com          : ok=5    changed=4    unreachable=0    fa
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
+<pre>
+  <code>
 PLAY [blockinfile module] *******************************************************************************************
 
 TASK [Gathering Facts] **********************************************************************************************
@@ -2287,7 +2403,8 @@ changed: [pg-standalone-01.example.com]
 
 PLAY RECAP **********************************************************************************************************
 pg-standalone-01.example.com          : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
-```
+  </code>
+</pre>
 
 </details>
 
@@ -2319,7 +2436,8 @@ pg-standalone-01.example.com          : ok=2    changed=1    unreachable=0    fa
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
+<pre>
+  <code>
 PLAY [cron module] **************************************************************************************************
 
 TASK [Gathering Facts] **********************************************************************************************
@@ -2333,7 +2451,8 @@ changed: [pg-standalone-01.example.com]
 
 PLAY RECAP **********************************************************************************************************
 pg-standalone-01.example.com          : ok=3    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
-```
+  </code>
+</pre>
 
 </details>
 
@@ -2363,7 +2482,8 @@ pg-standalone-01.example.com          : ok=3    changed=2    unreachable=0    fa
 <details>
   <summary>Example Output (Click to expand)</summary>
 
-```json
+<pre>
+  <code>
 PLAY [debug module] *************************************************************************************************
 
 TASK [Gathering Facts] **********************************************************************************************
@@ -2399,6 +2519,7 @@ ok: [pg-standalone-01.example.com] => {
 
 PLAY RECAP **********************************************************************************************************
 pg-standalone-01.example.com          : ok=4    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
-```
+  </code>
+</pre>
 
 </details>
