@@ -2182,7 +2182,9 @@ logfile = pgbouncer.log
 pidfile = pgbouncer.pid
 admin_users = pgbouncer
 stats_users = stat_collector
-```
+  </code>
+</pre>
+
 </details>
 
 ### Module find
